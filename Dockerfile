@@ -1,10 +1,13 @@
+# Dockerfile
 FROM minio/minio:latest
 
-# MinIO starts on port 9000 and console on 9001 by default
+# Expose MinIO server and console ports
 EXPOSE 9000 9001
 
-# Set entrypoint to run MinIO server in standalone mode
-ENTRYPOINT ["minio"]
+# Set environment variables for access
+ENV MINIO_ROOT_USER=minioadmin
+ENV MINIO_ROOT_PASSWORD=minioadmin123
 
-# Start in standalone mode with /data directory
+# Run MinIO in standalone mode
+ENTRYPOINT ["minio"]
 CMD ["server", "/data", "--console-address", ":9001"]
